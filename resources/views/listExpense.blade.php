@@ -10,6 +10,11 @@
         </a>
     </div>
 
+    <a href="{{ route('expense_transaction.pdf') }}" class="btn btn-danger mb-3">
+        Export PDF
+    </a>
+
+
     @error('nominal')
     <div class="text-danger">{{ $message }}</div>
     @enderror
@@ -21,11 +26,10 @@
                     <tr>
                         <th>#</th>
                         <th>Tanggal</th>
-                        <th>Nominal</th>
+                        <th>Nominal Pengeluaran</th>
+                        <th class="text-end">Nominal Tersisa</th>
                         <th>Kategori</th>
                         <th>Keterangan</th>
-                        {{-- <th class="text-end">Amount</th>
-                        <th>User</th> --}}
                         <th width="120">Action</th>
                     </tr>
                 </thead>
@@ -37,6 +41,9 @@
                         </td>
                         <td class="text-end">
                             Rp {{ number_format($expense->nominal, 0, ',', '.') }}
+                        </td>
+                        <td class="text-end">
+                            Rp {{ number_format($expense->nominal_setelah, 0, ',', '.') }}
                         </td>
                         <td>{{ $expense->category->nama_jenis }}
 

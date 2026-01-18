@@ -7,6 +7,7 @@ use App\Models\ExpenseCategory;
 use App\Models\ExpenseTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ExpenseTransactionController extends Controller
 {
@@ -36,6 +37,7 @@ class ExpenseTransactionController extends Controller
     public function store(Request $request)
     {
         $latestBalance = CashBalance::latest()->value('nominal');
+
         $request->validate([
             'tanggal' => 'required',
             'nominal' => [
@@ -55,6 +57,7 @@ class ExpenseTransactionController extends Controller
             'tanggal' => $request->tanggal,
             'nominal' => $request->nominal,
             'keterangan' => $request->keterangan,
+            'nominal_setelah' => $latestBalance - $request->nominal,
         ]);
 
         return redirect()
@@ -92,5 +95,17 @@ class ExpenseTransactionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportPDF()
+    {
+        $dataExTransaction = ExpenseTransaction::with('category', 'user')
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        $pdf = PDF::loadView('expenseReport', compact('dataExTransaction'))
+            ->setPaper('a4', 'landscape');  // optional: landscape
+
+        return $pdf->download('Laporan_Transaksi_Pengeluaran.pdf');
     }
 }

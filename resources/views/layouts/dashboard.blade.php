@@ -15,7 +15,8 @@
 
         .sidebar {
             width: 250px;
-            background-color: #212529;
+            background: linear-gradient(135deg, #b0bed4, #6610f2);
+
         }
 
         .sidebar a {
@@ -26,7 +27,7 @@
         }
 
         .sidebar a:hover {
-            background-color: #343a40;
+            background-color: #653a6f;
             color: #fff;
         }
 
@@ -42,31 +43,38 @@
 <body>
 
     <div class="d-flex">
-        <div class="sidebar vh-100">
-            <div class="title">
+        <div class="sidebar vh-100 text-white d-flex flex-column p-3" style="width: 250px;">
+            <div class="mb-4 text-center fs-4 fw-bold">
                 Finance App
             </div>
 
-            <a href="{{ url('/dashboard') }}">Dashboard</a>
+            <nav class="flex-grow-1">
+                <a href="{{ url('/dashboard') }}" class="d-block py-2 px-3 mb-1 rounded text-white text-decoration-none hover-bg-light">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </a>
 
-            @auth
-            @if(auth()->user()->role_id == 1)
-            <div class="text-uppercase text-secondary px-3 mt-3 small">
-                Master Data
-            </div>
-            <a href="{{ url('/expense-categories') }}">Expense Categories</a>
-            @endif
-            @endauth
+                @auth
+                @if(auth()->user()->role_id == 1)
+                <div class="text-uppercase text-secondary px-3 mt-4 mb-1 small fw-bold">
+                    Master Data
+                </div>
+                <a href="{{ url('/expense-categories') }}" class="d-block py-2 px-3 mb-1 rounded text-white text-decoration-none hover-bg-light">
+                    <i class="bi bi-list-task me-2"></i> Expense Categories
+                </a>
+                @endif
+                @endauth
 
+                <div class="text-uppercase text-secondary px-3 mt-4 mb-1 small fw-bold">
+                    Transactions
+                </div>
+                <a href="{{ route('expense_transaction.index')}}" class="d-block py-2 px-3 mb-1 rounded text-white text-decoration-none hover-bg-light">
+                    <i class="bi bi-cash-stack me-2"></i> Expense Transactions
+                </a>
+            </nav>
 
-            <div class="text-uppercase text-secondary px-3 mt-3 small">
-                Transactions
-            </div>
-            <a href="{{ route('expense_transaction.index')}}">Expense Transactions</a>
-
-            <div class="mt-auto">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
+            <div class="mt-auto px-3">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-block py-2 px-3 rounded text-white text-decoration-none hover-bg-light">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
@@ -74,10 +82,11 @@
             </div>
         </div>
 
-        <div class="flex-grow-1 p-4">
+        <div class="flex-grow-1 p-4 bg-light">
             @yield('content')
         </div>
     </div>
+
 
 </body>
 </html>

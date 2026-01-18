@@ -18,6 +18,7 @@ class ExpenseTransaction extends Model
         'tanggal',
         'nominal',
         'keterangan',
+        'nominal_setelah',
     ];
 
     protected $casts = [
