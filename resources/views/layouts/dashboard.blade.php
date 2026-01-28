@@ -58,7 +58,7 @@
                 <div class="text-uppercase text-secondary px-3 mt-4 mb-1 small fw-bold">
                     Master Data
                 </div>
-                <a href="{{ url('/expense-categories') }}" class="d-block py-2 px-3 mb-1 rounded text-white text-decoration-none hover-bg-light">
+                <a href="{{ route('expense_categories.index')}}" class="d-block py-2 px-3 mb-1 rounded text-white text-decoration-none hover-bg-light">
                     <i class="bi bi-list-task me-2"></i> Expense Categories
                 </a>
                 @endif

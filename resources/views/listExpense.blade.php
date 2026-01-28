@@ -14,17 +14,12 @@
         Export PDF
     </a>
 
-
-    @error('nominal')
-    <div class="text-danger">{{ $message }}</div>
-    @enderror
-
     <div class="card shadow-sm">
         <div class="card-body">
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-dark">
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Tanggal</th>
                         <th>Nominal Pengeluaran</th>
                         <th class="text-end">Nominal Tersisa</th>

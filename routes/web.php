@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseTransactionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -28,3 +29,5 @@ Route::get('expense_transactions/pdf', [ExpenseTransactionController::class, 'ex
     ->name('expense_transaction.pdf');
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+Route::resource('expense_categories', ExpenseCategoryController::class);
