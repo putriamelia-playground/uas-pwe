@@ -5,29 +5,29 @@ use App\Http\Controllers\ExpenseTransactionController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\UserController; // Pastikan ini hanya dipanggil sekali
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Autentikasi
 Route::get('login', [LoginController::class, 'view'])->name('login.form');
-
 Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', LogoutController::class)->middleware('auth')->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+// Dashboard (Hanya satu route saja)
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+    ->name('dashboard')
+    ->middleware('auth');
 
-Route::post('/logout', LogoutController::class)
-    ->middleware('auth')
-    ->name('logout');
+// Master Data & Admin
+Route::resource('expense-categories', ExpenseCategoryController::class)->names('expense_categories');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
+// Transaksi
 Route::resource('expense_transaction', ExpenseTransactionController::class);
-
 Route::get('expense_transactions/pdf', [ExpenseTransactionController::class, 'exportPDF'])
     ->name('expense_transaction.pdf');
-
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-
-Route::resource('expense-categories', ExpenseCategoryController::class)->names('expense_categories');
+    

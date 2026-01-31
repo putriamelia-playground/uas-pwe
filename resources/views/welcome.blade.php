@@ -57,8 +57,9 @@
 
         <p>Universitas Mercu Buana</p>
 
-        <a href="{{ url('/dashboard') }}" class="btn btn-light btn-splash text-primary fw-bold">
-            Login
+        <a href="{{ route('login.form') }}" class="btn btn-light">Login</a>
+        
+    
         </a>
     </div>
 </body>
