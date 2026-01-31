@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ExpenseTransactionController;
 use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\ExpenseTransactionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UserController; // Pastikan ini hanya dipanggil sekali
@@ -30,4 +30,11 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::resource('expense_transaction', ExpenseTransactionController::class);
 Route::get('expense_transactions/pdf', [ExpenseTransactionController::class, 'exportPDF'])
     ->name('expense_transaction.pdf');
+<<<<<<< HEAD
     
+=======
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+Route::resource('expense_categories', ExpenseCategoryController::class);
+>>>>>>> 96f4406de8b618ce44f18b9ea65d4d7993c4f474

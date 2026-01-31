@@ -7,55 +7,71 @@ use Illuminate\Http\Request;
 
 class ExpenseCategoryController extends Controller
 {
-  public function index()
-{
-    $categories = ExpenseCategory::all();
-    // Panggil nama file tanpa .blade.php
-    return view('expenseCategories', compact('categories'));
-}
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $dataExCategory = ExpenseCategory::get();
 
-public function create()
-{
-    $categories = ExpenseCategory::all();
-    $expenseCategory = new ExpenseCategory(); // Objek kosong untuk form tambah
-    return view('expenseCategories', compact('categories', 'expenseCategory'));
-}
+        return view('listExpenseCategory', compact('dataExCategory'));
+    }
 
-public function store(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('formExpenseCategory');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         $request->validate([
-            'nama_jenis' => 'required|unique:expense_categories,nama_jenis'
+            'nama_jenis' => 'required',
         ]);
 
         ExpenseCategory::create([
-            'nama_jenis' => $request->nama_jenis
+            'nama_jenis' => $request->nama_jenis,
         ]);
 
-        return redirect()->route('expense_categories.index')->with('success', 'Kategori berhasil disimpan!');
+        return redirect()
+            ->route('expense_categories.index')
+            ->with('success', 'Jenis Kategori Baru Berhasil Dibuat.');
     }
 
-public function edit(ExpenseCategory $expenseCategory)
-{
-    $categories = ExpenseCategory::all();
-    return view('expenseCategories', compact('categories', 'expenseCategory'));
-}
-
-public function update(Request $request, ExpenseCategory $expenseCategory)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $request->validate([
-            'nama_jenis' => 'required|unique:expense_categories,nama_jenis,' . $expenseCategory->id
-        ]);
-
-        $expenseCategory->update([
-            'nama_jenis' => $request->nama_jenis
-        ]);
-
-        return redirect()->route('expense_categories.index')->with('success', 'Kategori berhasil diperbarui!');
+        //
     }
 
-    public function destroy(ExpenseCategory $expenseCategory)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
-        $expenseCategory->delete();
-        return redirect()->route('expense_categories.index')->with('success', 'Kategori berhasil dihapus!');
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
